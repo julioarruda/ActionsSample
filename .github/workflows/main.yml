@@ -1,0 +1,31 @@
+name: ASP.NET Core CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+        
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 2.2.108
+    
+    - name: Restore
+      run: dotnet restore
+    
+    - name: Build with dotnet
+      run: dotnet build --configuration Release
+
+
+    - name: Dotnet Publish
+      run: dotnet publish --configuration Release -o netcore 
+    
+    - name: Azure WebApp
+      uses: Azure/webapps-deploy@v1
+      with:
+        publish-profile: ${{ secrets.azureWebAppPublishProfile }}
+        app-name: expoetep
+        package: /home/runner/work/DemoApp/DemoApp/DemoApp/netcore/
