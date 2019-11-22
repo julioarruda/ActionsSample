@@ -15,6 +15,7 @@ jobs:
     
     - name: Restore
       run: dotnet restore
+      working-directory: ./DemoApp
     
     - name: Build with dotnet
       run: dotnet build --configuration Release
