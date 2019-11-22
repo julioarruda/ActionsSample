@@ -31,4 +31,4 @@ jobs:
       with:
         publish-profile: ${{ secrets.azureWebAppPublishProfile }}
         app-name: expoetep
-        package: /home/runner/work/DemoApp/DemoApp/DemoApp/netcore/
+        package: /home/runner/work/TDCPOA/TDCPOA/DemoApp/DemoApp/netcore/
