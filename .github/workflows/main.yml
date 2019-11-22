@@ -19,10 +19,12 @@ jobs:
     
     - name: Build with dotnet
       run: dotnet build --configuration Release
+      working-directory: ./DemoApp
 
 
     - name: Dotnet Publish
       run: dotnet publish --configuration Release -o netcore 
+      working-directory: ./DemoApp
     
     - name: Azure WebApp
       uses: Azure/webapps-deploy@v1
