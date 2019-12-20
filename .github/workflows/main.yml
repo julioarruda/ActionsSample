@@ -41,7 +41,7 @@ jobs:
      if: github.base_ref == 'master'
      steps:
        - name: Merge
-         uses: actions/github-script@-.2.0
+         uses: actions/github-script@0.2.0
          with:
            script: |
              github.pullRequests.merge({
