@@ -36,6 +36,6 @@ jobs:
         path: DemoApp/DemoApp/netcore/
     
     - name: Zip Artifact
-      run: zip /home/runner/work/TDCPOA/TDCPOA/DemoApp/DemoApp/netcore/
+      run: zip /home/runner/work/TDCPOA/TDCPOA/DemoApp/DemoApp/netcore
       
   
