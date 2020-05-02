@@ -35,7 +35,8 @@ jobs:
         name: artifact
         path: DemoApp/DemoApp/netcore/
     
-    - name: Zip Artifact
-      run: zip /home/runner/work/TDCPOA/TDCPOA/DemoApp/DemoApp/netcore
+    - uses: montudor/action-zip@v0.1.0
+      with:
+        args: zip -qq -r DemoApp/DemoApp/netcore.zip DemoApp/DemoApp/netcore
       
   
