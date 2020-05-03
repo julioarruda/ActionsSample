@@ -6,7 +6,7 @@ on:
       - master
         
 env:
-  versao: $GITHUB_RUN_NUMBER          
+  versao: ${GITHUB_RUN_NUMBER}         
           
 
 jobs:
