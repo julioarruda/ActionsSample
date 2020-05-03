@@ -5,7 +5,7 @@ on:
     branches: 
       - master
 env:
-  resourceGroup1: ${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}
+  releaseVersion: ${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}
 
 
 jobs:
@@ -13,8 +13,8 @@ jobs:
     runs-on: ubuntu-latest
         
     steps:
-    - name: Show GITHUB_RUN_NUMBER
-      run: echo "::set-env name=versao::${{ env.resourceGroup1 }}"
+    - name: Set-ReleaseVersion
+      run: echo "::set-env name=versao::${{ env.releaseVersion }}"
       
     - uses: actions/checkout@v1
     - name: Setup .NET Core
