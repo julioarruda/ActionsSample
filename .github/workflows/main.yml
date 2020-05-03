@@ -14,7 +14,7 @@ jobs:
         
     steps:
     - name: Show GITHUB_RUN_NUMBER
-      run: echo ${{ env.resourceGroup1 }}
+      run: echo "::set-env name=versao::$resourceGroup1"
       
     - uses: actions/checkout@v1
     - name: Setup .NET Core
@@ -53,8 +53,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.TOKEN }}
       with:
-        tag_name: ${{ env.resourceGroup1 }}
-        release_name: Release ${{ env.resourceGroup1 }}
+        tag_name: ${{ env.versao }}
+        release_name: Release ${{ env.versao }}
         draft: false
         prerelease: false
         
