@@ -48,10 +48,9 @@ jobs:
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.TOKEN }}
-        versao: ${{ GITHUB_RUN_NUMBER }}    
       with:
-        tag_name: $versao
-        release_name: Release $versao
+        tag_name: ${{ github.run.number }}
+        release_name: Release ${{ github.run.number }}
         draft: false
         prerelease: false
         
