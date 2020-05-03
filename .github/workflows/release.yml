@@ -1,0 +1,72 @@
+name: Release
+
+on: 
+  push:
+    tags:
+      - 'v*'
+
+env:
+  releaseVersion: ${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+        
+    steps:
+    - name: Set-ReleaseVersion
+      run: echo "::set-env name=versao::${{ env.releaseVersion }}"
+      
+    - uses: actions/checkout@v1
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 2.2.108
+    
+    - name: Restore
+      run: dotnet restore
+      working-directory: ./DemoApp
+    
+    - name: Build with dotnet
+      run: dotnet build --configuration Release
+      working-directory: ./DemoApp
+
+
+    - name: Dotnet Publish
+      run: dotnet publish --configuration Release -o netcore 
+      working-directory: ./DemoApp
+
+    - uses: montudor/action-zip@v0.1.0
+      with:
+        args: zip -qq -r DemoApp/DemoApp/netcore.zip DemoApp/DemoApp/netcore
+      
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: artifact
+        path: DemoApp/DemoApp/netcore.zip
+    
+      
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: false
+        
+        
+    - name: Upload Release Asset
+      id: upload-release-asset 
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        asset_path: DemoApp/DemoApp/netcore.zip
+        asset_name: netcore.zip
+        asset_content_type: application/zip
