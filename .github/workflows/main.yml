@@ -4,6 +4,10 @@ on:
   push:
     branches: 
       - master
+        
+env:
+  versao: $GITHUB_RUN_NUMBER          
+          
 
 jobs:
   build:
@@ -50,8 +54,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.TOKEN }}
       with:
-        tag_name: ${GITHUB_RUN_NUMBER}
-        release_name: Release ${GITHUB_RUN_NUMBER}
+        tag_name: ${{ env.versao }}
+        release_name: Release ${{ env.versao }}
         draft: false
         prerelease: false
         
