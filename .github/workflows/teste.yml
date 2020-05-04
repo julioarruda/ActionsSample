@@ -11,15 +11,15 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
-    - uses: julioarruda/FirstAction@v1
+    - run: docker pull node:latest
+    - run: docker tag node:latest myregistry.azurecr.io/hello-world:v2
+    - name: Push Image to ACR
+      uses: julioarruda/pushimagetoacr@v0
       with:
-        who-to-greet: 'Julio Arruda'
+        acr-tokenname: ${{ secrets.ACR_TOKEN_NAME }}
+        acr-token: ${{ secrets.ACR_TOKEN_VALUE }}
+        acr-account: myregistry.azurecr.io
+        imagename: myregistry.azurecr.io/hello-world:v2
