@@ -19,8 +19,11 @@ jobs:
         dotnet-version: 3.1.101
     - name: Install dependencies
       run: dotnet restore
+      working-directory: ./DemoApp
+      
     - name: Build
       run: dotnet build --configuration Release --no-restore
+      working-directory: ./DemoApp
       
     - uses: microsoft/RichCodeNavIndexer@v0.1
 
