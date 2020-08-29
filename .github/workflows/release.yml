@@ -1,6 +1,7 @@
 name: Release
 
 on: 
+  workflow_dispatch:
   push:
     tags:
       - 'v*'
@@ -37,7 +38,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: artifact
-        path: DemoApp/DemoApp/netcore.zip
+        path: DemoApp/DemoApp/netcore
     
       
     - name: Create Release
